@@ -1,10 +1,9 @@
 'use client'
-import CLink from '@/components/link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import React, { useState } from 'react'
 
-export default function Page() {
+export default function page() {
     const [newPassword, setNewPassword] = useState({
         password: '',
         confirmPassword: ''
@@ -14,7 +13,7 @@ export default function Page() {
         const { name, value } = event.target;
         setNewPassword((prevData) => ({
             ...prevData,
-            [name]: value, // Dynamically update the correct field
+            [name]: value, 
         }));
     }
     
