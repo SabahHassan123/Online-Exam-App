@@ -16,9 +16,7 @@ export default function page() {
       <p className='text-2xl'>Forgot Your Password?</p>
       {/* <form action="" className='text-end'> */}
         <Input name= 'email' type='email' placeholder='Enter Email' value={email} onChange={handleEmailChange} />
-        {/* <p className='font-light'>Didn't receive a code?
-          <CLink href='signin' hyperText=' Resend' boldText='font-medium'/>
-        </p> */}
+       
         <Button className='w-full rounded-xl py-5' type='submit'>
             <CLink href='verify-code' hyperText='Send'/>
         </Button>

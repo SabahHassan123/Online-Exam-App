@@ -1,7 +1,6 @@
 import LeftSide from "@/components/left-side.auth";
 import CLink from "@/components/link";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { FaFacebook } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";

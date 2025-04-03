@@ -2,8 +2,8 @@
 import CLink from '@/components/link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import Link from 'next/link'
 import React, { useState } from 'react'
+
 
 export default function page() {
   const [vCode, setVCode] = useState('');

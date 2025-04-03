@@ -1,5 +1,4 @@
 'use client'
-import InputField from '@/components/input-field'
 import CLink from '@/components/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,7 +17,7 @@ export default function Register() {
     const { name, value } = event.target;
     setSignupData((prevData) => ({
       ...prevData,
-      [name]: value, // Dynamically update the correct field
+      [name]: value, 
     }));
   };
 
