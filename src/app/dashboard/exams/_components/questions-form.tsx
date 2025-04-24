@@ -1,10 +1,7 @@
 "use client";
-import { useQueries, useQuery } from "@tanstack/react-query";
 import React from "react";
 
 export default function QuestionForm() {
-  // Query
-  const {} = useQueries();
   return (
     <div>
       {/* Header */}
