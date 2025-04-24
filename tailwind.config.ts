@@ -16,6 +16,8 @@ const config: Config = {
 			facebookIconColor: '#1877F2',
 			twitterIconColor: '#1D9BF0',
 			main: '#4461F2',
+			textColor: '#696F79',
+			backgroundColor: '#fbf9f9',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
