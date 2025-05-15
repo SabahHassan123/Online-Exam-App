@@ -1,9 +1,9 @@
-import { GetAllSubjects } from "@/lib/apis/subject.api";
+import { getAllSubjects } from "@/lib/apis/subject.api";
 import QuizCard from "./quiz-card";
 import CLink from "@/components/link";
 
 export default async function Quizes() {
-  const response = await GetAllSubjects();
+  const response = await getAllSubjects();
 
   if (!response.success) {
     console.log("error:", response.message);
@@ -22,10 +22,7 @@ export default async function Quizes() {
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-col-1 xs:grid-col-1 gap-3 ">
         {subjects?.map((subject) => {
           return (
-            <div
-              className="flex justify-center flex-col relative items-center"
-              key={subject._id}
-            >
+            <div className="flex justify-center flex-col relative items-center" key={subject._id}>
               <QuizCard subject={subject} />
             </div>
           );

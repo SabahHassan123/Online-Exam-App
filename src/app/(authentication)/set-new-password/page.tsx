@@ -1,34 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  ResetPasswordFields,
-  ResetPasswordSchema,
-} from "@/lib/schemes/auth.schema";
-import { ResetPassword } from "@/lib/apis/auth.api";
+import { Form, FormField, FormItem, FormControl, FormMessage } from "@/components/ui/form";
+import { ResetPasswordFields, ResetPasswordSchema } from "@/lib/schemes/auth.schema";
+import { resetPasswordAction } from "@/lib/apis/auth.api";
 
 export default function Page() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const email = searchParams.get("email");
-
-  // Form for displaying a popup error message
-  const [message, setMessage] = useState({
-    show: false,
-    messageText: "",
-  });
 
   // Initialize react-hook-form with Zod validation
   const form = useForm<ResetPasswordFields>({
@@ -39,16 +23,11 @@ export default function Page() {
     },
   });
 
-  const {
-    handleSubmit,
-    setError,
-    control,
-    formState: { errors },
-  } = form;
+  const { handleSubmit, control } = form;
 
   // Submit handler for form
   const onSubmit = async (data: ResetPasswordFields) => {
-    const response = await ResetPassword({
+    const response = await resetPasswordAction({
       email: email!,
       newPassword: data.password,
     });
@@ -66,10 +45,7 @@ export default function Page() {
 
       {/* Hook form context wrapper */}
       <Form {...form}>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="text-end my-10 space-y-6"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="text-end my-10 space-y-6">
           {/* Password Field */}
           <FormField
             control={control}
@@ -91,11 +67,7 @@ export default function Page() {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input
-                    {...field}
-                    type="password"
-                    placeholder="Confirm Password"
-                  />
+                  <Input {...field} type="password" placeholder="Confirm Password" />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
-import AuthImage from "@/../puplic/images/bro.png";
+import AuthImage from "assets/images/bro.png";
+
 export default function LeftSide() {
   return (
     <section className="flex justify-center items-center flex-col p-10 bg-indigo-50 min-h-full">

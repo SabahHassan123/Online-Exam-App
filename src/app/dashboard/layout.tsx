@@ -19,6 +19,7 @@ export default async function DashboardLayout({
   if (!userData) redirect("/signin");
   // Add type assertion or validation
   if (userData.role !== "admin" && userData.role !== "user") {
+    // This line is useless
     redirect("/signin");
   }
 

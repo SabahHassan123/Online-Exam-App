@@ -10,13 +10,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { LoginFields, LoginSchema } from "@/lib/schemes/auth.schema";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import Message from "@/components/ui/message-popup";
 
 export default function Page() {
@@ -52,13 +46,14 @@ export default function Page() {
     } else {
       // Show error message if login fails
       setMessage({ show: true, messageText: response.error });
-      setTimeout(() => setMessage({ show: false, messageText: "" }), 3000);
+      setTimeout(() => setMessage({ show: false, messageText: "" }), 1000);
     }
   };
 
   return (
     <div>
       {/* Error or success message popup */}
+      {/* Message should be displayed above submit not as a toast */}
       <Message messageText={message.messageText} show={message.show} />
 
       {/* Heading */}

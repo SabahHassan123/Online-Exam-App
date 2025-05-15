@@ -1,11 +1,11 @@
 "use client";
 
-import React, { ReactNode, useState } from "react";
-import ExamIcon from "../../../../../puplic/images/skill-icons_html.png";
+import { useState } from "react";
+import ExamIcon from "assets/images/skill-icons_html.png";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import ExamHistoryCard from "./Exam-history-card";
 import QuestionsModal from "../../exams/_components/questions-modal";
+import ExamHistoryCard from "./exam-history-card";
 
 interface QuizProps {
   title: string;
@@ -15,13 +15,7 @@ interface QuizProps {
   numberOfCorrected?: number;
 }
 
-const QuizCardTemp = ({
-  title,
-  duration,
-  subject,
-  numberOfQuestions,
-  numberOfCorrected,
-}: QuizProps) => {
+const QuizCardTemp = ({ title, duration, subject, numberOfQuestions, numberOfCorrected }: QuizProps) => {
   const [openModal, setOpenModal] = useState(false);
 
   const handleModal = () => {

@@ -1,10 +1,10 @@
-import { GetAllExams } from "@/lib/apis/subject.api";
 import React from "react";
 import QuizCardTemp from "../../quizes-history/_components/quiz-card-temp";
+import { getAllExams } from "@/lib/apis/subject.api";
 
 export default async function ExamsList() {
   //  get exams from the endpoint
-  const response = await GetAllExams();
+  const response = await getAllExams();
 
   // check if there is any error
   if (!response.success) {
@@ -20,16 +20,7 @@ export default async function ExamsList() {
       {exams?.map((exam) => {
         return (
           <QuizCardTemp
-            title={exam.title}
-            duration={exam.duration}
-            numberOfQuestions={exam.numberOfQuestions}
-            subject={exam.subject}
-          />
-        );
-      })}
-      {exams?.map((exam) => {
-        return (
-          <QuizCardTemp
+            key={exam._id}
             title={exam.title}
             duration={exam.duration}
             numberOfQuestions={exam.numberOfQuestions}

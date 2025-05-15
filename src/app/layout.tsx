@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Poppins } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -33,10 +34,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased ${poppins.variable}`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased ${poppins.variable}`}>
         {children}
+        <Toaster />
       </body>
     </html>
   );

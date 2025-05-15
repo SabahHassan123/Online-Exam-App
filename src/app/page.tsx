@@ -1,7 +1,5 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 
 export default function Home() {
-  redirect("/signin");
+  redirect("/signin"); // Such redirect (in this case) is better to be handeled in next.config.mjs
 }

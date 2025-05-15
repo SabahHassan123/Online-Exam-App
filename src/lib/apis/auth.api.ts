@@ -1,9 +1,9 @@
 "use server";
-import { getServerSession } from "next-auth";
-import { JSON_HEADER } from "../constants/api.contants";
-import { authOptions } from "@/auth";
 
-export async function SignUp(userData: SignupRequest) {
+import { JSON_HEADER } from "../constants/api.contants";
+import decodeToken from "../utils/get-token";
+
+export async function signUpAction(userData: SignupRequest) {
   const response = await fetch(`${process.env.API}/auth/signup`, {
     method: "POST",
     headers: { ...JSON_HEADER },
@@ -19,6 +19,7 @@ export async function SignUp(userData: SignupRequest) {
   });
 
   const result: APIResponse<AuthResponse> = await response.json();
+
   if ("code" in result) {
     return {
       success: false,
@@ -34,7 +35,7 @@ export async function SignUp(userData: SignupRequest) {
   }
 }
 
-export async function ForgotPassword(email: string) {
+export async function forgotPasswordAction(email: string) {
   const response = await fetch(`${process.env.API}/auth/forgotPassword`, {
     method: "POST",
     headers: { ...JSON_HEADER },
@@ -44,6 +45,7 @@ export async function ForgotPassword(email: string) {
   });
 
   const result: APIResponse<ForgotPasswordResponse> = await response.json();
+
   if ("code" in result) {
     return {
       success: false,
@@ -57,7 +59,7 @@ export async function ForgotPassword(email: string) {
   }
 }
 
-export async function VerifyCode(resetCode: string) {
+export async function verifyCodeAction(resetCode: string) {
   const response = await fetch(`${process.env.API}/auth/verifyResetCode`, {
     method: "POST",
     headers: { ...JSON_HEADER },
@@ -67,6 +69,7 @@ export async function VerifyCode(resetCode: string) {
   });
 
   const result: VerificationAPIResponse = await response.json();
+
   if ("code" in result) {
     return {
       success: false,
@@ -78,7 +81,7 @@ export async function VerifyCode(resetCode: string) {
     };
   }
 }
-export async function ResetPassword(resetPasswordData: ResetPasswordRequest) {
+export async function resetPasswordAction(resetPasswordData: ResetPasswordRequest) {
   const response = await fetch(`${process.env.API}/auth/resetPassword`, {
     method: "PUT",
     headers: { ...JSON_HEADER },
@@ -89,6 +92,7 @@ export async function ResetPassword(resetPasswordData: ResetPasswordRequest) {
   });
 
   const result: APIResponse<ResetPasswordResponse> = await response.json();
+
   if ("code" in result) {
     return {
       success: false,
@@ -102,8 +106,8 @@ export async function ResetPassword(resetPasswordData: ResetPasswordRequest) {
   }
 }
 
-export async function Logout() {
-  const session = await getServerSession(authOptions);
+export async function logoutAction() {
+  const session = await decodeToken();
   const response = await fetch(`${process.env.API}/auth/logout`, {
     method: "GET",
     headers: {

@@ -1,23 +1,18 @@
 import z from "zod";
 
 export const LoginSchema = z.object({
-  email: z
-    .string({ required_error: "Email is required" })
-    .min(1, "Email is required")
-    .email("Please enter a valid email address"),
+  email: z.string({ required_error: "Email is required" }).min(1, "Email is required").email("Please enter a valid email address"),
 
-  password: z
-    .string({ required_error: "Password is required" })
-    .min(1, "Password is required"),
+  password: z.string({ required_error: "Password is required" }).min(1, "Password is required"),
 });
 
 export const SignUpSchema = z
   .object({
     firstName: z.string().min(1, "First name is required"),
     lastName: z.string().min(1, "Last name is required"),
-    phone: z.string().min(10, "Phone number is required"),
+    phone: z.string().min(10, "Phone number is required"), // Proper validation should've been applied
     email: z.string().email("Invalid email"),
-    password: z.string().min(8, "Password must be at least 8 characters"),
+    password: z.string().min(8, "Password must be at least 8 characters"), // Proper validation should've been applied
     rePassword: z.string().min(8, "Confirm password is required"),
   })
   .refine((data) => data.password === data.rePassword, {
@@ -26,7 +21,7 @@ export const SignUpSchema = z
   });
 
 export const CodeVerificationSchema = z.object({
-  code: z.string().min(1, "Verification code is required"),
+  code: z.string().min(1, "Verification code is required"), // Proper validation should've been applied
 });
 
 export const ForgotPasswordSchema = z.object({
@@ -35,7 +30,7 @@ export const ForgotPasswordSchema = z.object({
 
 export const ResetPasswordSchema = z
   .object({
-    password: z.string().min(8, "Password must be at least 8 characters"),
+    password: z.string().min(8, "Password must be at least 8 characters"), // Proper validation should've been applied
     rePassword: z.string(),
   })
   .refine((data) => data.password === data.rePassword, {
