@@ -1,11 +1,9 @@
-declare type Subjects = [
-  {
-    _id: string;
-    name: string;
-    icon: string;
-    createdAt: string;
-  },
-];
+declare type Subjects = {
+  _id: string;
+  name: string;
+  icon: string;
+  createdAt: string;
+}[];
 
 declare type Metadata = {
   currentPage: number;
@@ -18,28 +16,17 @@ declare type GetAllSubjectsResponse = {
   subjects: Subjects;
 };
 
-declare type Exams = [
-  {
-    _id: string;
-    title: string;
-    duration: number;
-    subject: string;
-    numberOfQuestions: number;
-    active: boolean;
-    createdAt: string;
-  },
-];
+declare type Exams = {
+  _id: string;
+  title: string;
+  duration: number;
+  subject: string;
+  numberOfQuestions: number;
+  active: boolean;
+  createdAt: string;
+}[];
 
 declare type GetAllExams = {
   metadata: Metadata;
   exams: Exams;
 };
-
-// declare type GetSingleSubjectResponse = {
-//   category: {
-//     _id: string,
-//     name: string,
-//     icon: string,
-//     createdAt: string,
-//   }
-// };

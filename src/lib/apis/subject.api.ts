@@ -1,11 +1,9 @@
-import { getServerSession } from "next-auth";
 import { JSON_HEADER } from "../constants/api.contants";
-import { authOptions } from "@/auth";
+import decodeToken from "../utils/get-token";
 
-export async function GetAllSubjects() {
+export async function getAllSubjects() {
   // get token
-  const session = await getServerSession(authOptions);
-  console.log(session!.token);
+  const session = await decodeToken();
 
   const response = await fetch(`${process.env.API}/subjects`, {
     method: "GET",
@@ -30,10 +28,9 @@ export async function GetAllSubjects() {
   }
 }
 
-export async function GetAllExams() {
+export async function getAllExams() {
   // get token
-  const session = await getServerSession(authOptions);
-  console.log(session!.token);
+  const session = await decodeToken();
 
   const response = await fetch(`${process.env.API}/exams`, {
     method: "GET",
@@ -42,6 +39,7 @@ export async function GetAllExams() {
       token: session!.token,
     },
   });
+
   const result: APIResponse<GetAllExams> = await response.json();
 
   if ("code" in result) {

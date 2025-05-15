@@ -1,33 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import {
-  CodeVerificationFields,
-  CodeVerificationSchema,
-} from "@/lib/schemes/auth.schema";
-import { ForgotPassword, VerifyCode } from "@/lib/apis/auth.api";
+import { CodeVerificationFields, CodeVerificationSchema } from "@/lib/schemes/auth.schema";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Message from "@/components/ui/message-popup";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { forgotPasswordAction, verifyCodeAction } from "@/lib/apis/auth.api";
+import { toast } from "sonner";
 
 export default function Page() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const router = useRouter();
-
-  const [message, setMessage] = useState({ show: false, messageText: "" });
 
   const form = useForm<CodeVerificationFields>({
     resolver: zodResolver(CodeVerificationSchema),
@@ -35,7 +23,7 @@ export default function Page() {
   });
 
   const onSubmit = async (data: CodeVerificationFields) => {
-    const response = await VerifyCode(data.code);
+    const response = await verifyCodeAction(data.code);
 
     if (response.success) {
       router.push(`/set-new-password?email=${encodeURIComponent(email!)}`);
@@ -45,31 +33,14 @@ export default function Page() {
         type: "manual",
         message: response.message || "Invalid verification code",
       });
-
-      // Optional: popup message
-      setMessage({ show: true, messageText: response.message! });
-
-      setTimeout(() => {
-        setMessage((prev) => ({ ...prev, show: false }));
-        setTimeout(() => {
-          setMessage((prev) => ({ ...prev, messageText: "" }));
-        }, 300);
-      }, 3000);
     }
   };
 
   const handleResendVerificationCode = async () => {
-    const response = await ForgotPassword(email!);
-    if (response.success) {
-      setMessage({ show: true, messageText: "OTP sent to your email" });
+    const response = await forgotPasswordAction(email!);
 
-      // setTimeout(() => {
-      //   setMessage((prev) => ({ ...prev, show: false }));
-      //   setTimeout(() => {
-      //     setMessage((prev) => ({ ...prev, messageText: "" }));
-      //   }, 300);
-      // }, 3000);
-    }
+    if (response.success) toast.success("OTP has been sent to your email.");
+    else toast.error(response.message);
   };
 
   return (
@@ -79,10 +50,7 @@ export default function Page() {
 
       {/* Verification Form */}
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="my-10 space-y-5"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="my-10 space-y-5">
           {/* Code Field */}
           <FormField
             control={form.control}
@@ -99,12 +67,8 @@ export default function Page() {
 
           {/* Resend Code */}
           <p className="font-light">
-            Didn't receive a code?
-            <button
-              type="button"
-              className="text-main font-medium ml-1"
-              onClick={handleResendVerificationCode}
-            >
+            Didn&apos;t receive a code?
+            <button type="button" className="text-main font-medium ml-1" onClick={handleResendVerificationCode}>
               Resend
             </button>
           </p>

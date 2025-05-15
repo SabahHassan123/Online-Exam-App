@@ -1,6 +1,6 @@
 import { Progress } from "@/components/ui/progress";
 import Image from "next/image";
-import user from "@/../puplic/images/user.png";
+import user from "assets/images/user.png";
 import { AiFillFlag } from "react-icons/ai";
 import { FaClock } from "react-icons/fa6";
 import { GoCheckCircleFill } from "react-icons/go";
@@ -58,11 +58,7 @@ export default async function StudentStatistics() {
       <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-3  md:gap-0">
         {studentStatistics.map((unit) => (
           <div className="row-span-2" key={unit.title}>
-            <StudentInfoUnit
-              icon={unit.icon}
-              title={unit.title}
-              number={unit.number}
-            />
+            <StudentInfoUnit icon={unit.icon} title={unit.title} number={unit.number} />
           </div>
         ))}
       </div>

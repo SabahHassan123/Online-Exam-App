@@ -1,23 +1,16 @@
 "use client";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpSchema, SignupFields } from "@/lib/schemes/auth.schema";
 import { useRouter } from "next/navigation";
-import { SignUp } from "@/lib/apis/auth.api";
 import CLink from "@/components/link";
 import Message from "@/components/ui/message-popup";
 import { useState } from "react";
+import { signUpAction } from "@/lib/apis/auth.api";
 
 export default function Register() {
   const router = useRouter();
@@ -41,7 +34,7 @@ export default function Register() {
   // Handle form submission
   const onSubmit = async (data: SignupFields) => {
     // Call signup API with form data and combined username
-    const response = await SignUp({
+    const response = await signUpAction({
       ...data,
       username: `${data.firstName} ${data.lastName}`,
     });
@@ -144,11 +137,7 @@ export default function Register() {
             render={({ field }) => (
               <FormItem className="mb-10">
                 <FormControl>
-                  <Input
-                    type="password"
-                    placeholder="Confirm Password"
-                    {...field}
-                  />
+                  <Input type="password" placeholder="Confirm Password" {...field} />
                 </FormControl>
                 <FormMessage className="text-start" />
               </FormItem>

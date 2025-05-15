@@ -33,7 +33,6 @@ export const authOptions: NextAuthOptions = {
         if ("code" in payload) {
           throw new Error(payload.message);
         }
-        console.log(payload);
 
         return {
           //id is required from nextauth
@@ -60,7 +59,8 @@ export const authOptions: NextAuthOptions = {
     // But you shouldn't decode sensitive data unless what is the purpose of Next.js!!
     session: ({ session, token }) => {
       session.user = token.user;
-      session.token = token.token;
+      // session.token = token.token;
+      // You should not save the token in the session, that will expose it in the client-side if useSession / getSession was used.
 
       return session;
     },
